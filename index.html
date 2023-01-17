@@ -36,8 +36,6 @@
 </head>
 <body>
 
-
-
 <script>
   window.rmlCalls = window.rmlCalls || {};
   function rml() {
@@ -46,36 +44,36 @@
     rmlCalls[ri].push(arguments);
   }
 
-  rml('config', {
-    options: {
-      embedPosition: 'bottomLeft',
-      collapsedMode: 'tab',
-      collapsedModeOnlineLabel: 'How can we help you?',
-      collapsedModeOfflineLabel: 'Contact Us',
-      greetingMessageUsername: 'Support Team',
-      greetingMessage: 'Welcome. :wave: Type a message below if you have any questions!',
-      selfIdentifyFormFields: {
-        displayName: { label: 'Display Name', required: true, enabled: true },
-        first: { label: 'First Name', required: false, enabled: true },
-        last: { label: 'Last Name', required: false, enabled: true },
-        email: { label: 'Email', required: false, enabled: true },
+  (async () => {
+    rml('config', {
+      options: {
+        embedPosition: 'bottomRight',
+        collapsedMode: 'chip',
+        collapsedModeOnlineLabel: 'How can we help you?',
+        collapsedModeOfflineLabel: 'Contact Us',
+        greetingMessageUsername: 'Support Team',
+        greetingMessage: 'Welcome. :wave: Type a message below if you have any questions!',
       },
-      selfIdentifyGreetingMsg: 'Your public chat info.',
-      selfIdentifyButtonLabel: 'Start chatting now',
-    },
-    widgetID: 'wgt_cf33ebo946celk7i4bvg',
-    pk: 'FXYAwkdWiPGHdnwk2NDyXWU-28ziY3piZly15rHU3HYb',
-    // Replace with the ID of the room-containing element.
-    roomElementID: 'rml-room-1',
-  });
+      widgetID: 'wgt_cf33ebo946celk7i4bvg',
+      pk: 'FXYAwkdWiPGHdnwk2NDyXWU-28ziY3piZly15rHU3HYb',
+      // Replace with the ID of the room-containing element.
+      roomElementID: 'rml-room-1',
+    });
 
-  rml('register', {
-    embedType: 'allRooms',
-    userNaming: 'visitorSpecified',
-
-    // Replace with the ID of the room-containing element.
-    roomElementID: 'rml-room-1',
-  });
+    // Replace with the URL of the registerParams endpoint of your
+    // server (see the server embed code for more info).
+    let signedPayload = await fetch('http://localhost:3000/registerParams');
+    let jsonPayload = await signedPayload.json();
+  
+    window.rml('registerSecure', {
+      options: jsonPayload.payloadStr,
+      payloadMAC: jsonPayload.payloadMAC,
+      embedType: 'singleRoom',
+      userNaming: 'apiSpecified',
+      // Replace with the ID of the room-containing element.
+      roomElementID: 'rml-room-1',
+    });
+  })();
 </script>
 <script src="https://embed.roomlio.com/embed.js"></script>
 
