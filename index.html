@@ -36,6 +36,8 @@
 </head>
 <body>
 
+
+
 <script>
   window.rmlCalls = window.rmlCalls || {};
   function rml() {
@@ -67,13 +69,8 @@
     roomElementID: 'rml-room-1',
   });
 
-  // Change roomKey and roomName to your own ones
   rml('register', {
-    options: {
-      roomKey: 'abc1234',
-      roomName: 'Smith Inc',
-    },
-    embedType: 'singleRoom',
+    embedType: 'allRooms',
     userNaming: 'visitorSpecified',
 
     // Replace with the ID of the room-containing element.
@@ -81,6 +78,7 @@
   });
 </script>
 <script src="https://embed.roomlio.com/embed.js"></script>
+
 
   <section data-bs-version="5.1" class="menu cid-s48OLK6784" once="menu" id="menu1-h">
     
